@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './ui/button/button.component';
 import { CardModule } from "./ui/card/card.module";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CardModule } from "./ui/card/card.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     CardModule
   ],
   providers: [],
