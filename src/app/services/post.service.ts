@@ -19,7 +19,7 @@ export class PostService {
     return this.http.get<IPost[]>('https://jsonplaceholder.typicode.com/posts')
   }
 
-  public search(userId: number) {
+  public search(userId: number): Observable<IPost[]> {
     return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/user/${userId}/posts`)
   }
 }
