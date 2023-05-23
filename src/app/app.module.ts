@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './ui/button/button.component';
 import { CardModule } from "./ui/card/card.module";
 import { HttpClientModule } from '@angular/common/http';
+import { PostListPageComponent } from './views/post-list-page/post-list-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ButtonComponent,
+    PostListPageComponent,
   ],
   imports: [
     BrowserModule,
