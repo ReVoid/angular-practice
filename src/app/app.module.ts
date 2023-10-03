@@ -7,12 +7,16 @@ import { ButtonComponent } from './ui/button/button.component';
 import { CardModule } from "./ui/card/card.module";
 import { HttpClientModule } from '@angular/common/http';
 import { PostListPageComponent } from './views/post-list-page/post-list-page.component';
+import { FormFieldComponent } from './ui/form-field/form-field.component';
+import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ButtonComponent,
     PostListPageComponent,
+    FormFieldComponent,
+    UiListPageComponent,
   ],
   imports: [
     BrowserModule,
