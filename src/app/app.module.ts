@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostListPageComponent } from './views/post-list-page/post-list-page.component';
 import { FormFieldComponent } from './ui/form-field/form-field.component';
 import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component';
+import { FormFieldModule } from "./ui/form-field/form-field.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CardModule
+    CardModule,
+    FormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
