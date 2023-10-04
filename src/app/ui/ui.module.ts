@@ -13,7 +13,6 @@ import { CardModule } from "./card/card.module";
   exports: [
     ButtonComponent,
     FormFieldModule,
-    FormFieldModule,
   ],
   imports: [
     CommonModule,
