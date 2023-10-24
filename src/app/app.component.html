@@ -1,6 +1,15 @@
 
 <header>
   <h2>Header</h2>
+  <nav class="flex gap-x-2">
+    <a *ngFor="let page of routes"
+       class="py-2 pl-3 pr-4 text-gray-900"
+       [routerLink]="page.path"
+       routerLinkActive="text-blue-500"
+    >
+      {{ page.title }}
+    </a>
+  </nav>
 </header>
 <main>
   <h2>Main</h2>

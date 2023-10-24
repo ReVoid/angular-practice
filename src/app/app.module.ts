@@ -10,6 +10,7 @@ import { UiModule } from "./ui/ui.module";
 import { PostListPageComponent } from './views/post-list-page/post-list-page.component';
 import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component';
 
+import { routes } from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -26,4 +27,6 @@ import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  routes = routes;
+}
