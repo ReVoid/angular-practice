@@ -8,6 +8,7 @@ import { UiModule } from "./ui/ui.module";
 
 // Pages
 import { PostListPageComponent } from './views/post-list-page/post-list-page.component';
+import { PostItemPageComponent } from './views/post-item-page/post-item-page.component';
 import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component';
 import { HttpErrorPageComponent } from './views/http-error-page/http-error-page.component';
 
@@ -17,6 +18,7 @@ import { routes } from "./app-routing.module";
   declarations: [
     AppComponent,
     PostListPageComponent,
+    PostItemPageComponent,
     UiListPageComponent,
     HttpErrorPageComponent,
   ],

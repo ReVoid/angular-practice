@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 export interface IPost {
+  id: number,
   userId: number,
   title: string,
   body: string,
