@@ -24,7 +24,7 @@ export class PostService {
     return this.http.get<IPost>(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }
 
-  public search(userId: number): Observable<IPost[]> {
-    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/user/${userId}/posts`)
+  public search(query: Pick<IPost, 'userId'>): Observable<IPost[]> {
+    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/user/${query.userId}/posts`)
   }
 }
