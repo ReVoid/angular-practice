@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from "../../services/post.service";
-import { Observable } from "rxjs";
+import { FormControl } from "@angular/forms";
+import { Observable, startWith } from "rxjs";
 
-import { IPost } from "../../services/post.service";
+import { PostService, IPost } from "../../services/post.service";
+
 
 @Component({
   selector: 'app-post-list-page',
@@ -11,12 +12,23 @@ import { IPost } from "../../services/post.service";
 })
 export class PostListPageComponent implements OnInit {
 
+  public query = new FormControl<string>('', { nonNullable: true });
 
   public posts$: Observable<IPost[]> = new Observable<IPost[]>();
 
   constructor(private repository: PostService) {}
 
   ngOnInit(): void {
-    this.posts$ = this.repository.index();
+    this.query.valueChanges.pipe(
+      startWith(''),
+    ).subscribe((v) => {
+      if(v.length > 0) {
+        this.posts$ = this.repository.search({
+          title: v,
+        });
+      } else {
+        this.posts$ = this.repository.index();
+      }
+    })
   }
 }

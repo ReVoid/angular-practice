@@ -24,14 +24,14 @@ export class PostService {
     return this.http.get<IPost>(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }
 
-  public search(query: Pick<IPost, 'userId' | 'title'>): Observable<IPost[]> {
-    type Params = Partial<Record<keyof typeof query, string>>;
+  public search(query: Partial<Pick<IPost, 'userId' | 'title'>>): Observable<IPost[]> {
+    type Params = Partial<Record<keyof typeof query, string | number>>;
 
     const params: Params = {
       title: query.title,
     };
 
-    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/user/${query.userId}/posts`, {
+    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/posts`, {
       params,
     })
   }
