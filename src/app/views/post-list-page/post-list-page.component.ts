@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { Observable, debounceTime, distinctUntilChanged, startWith } from "rxjs";
+import { Observable, debounceTime, distinctUntilChanged, startWith, switchMap } from "rxjs";
 
 import { PostService, IPost } from "../../services/post.service";
 
@@ -19,18 +19,19 @@ export class PostListPageComponent implements OnInit {
   constructor(private repository: PostService) {}
 
   ngOnInit(): void {
-    this.query.valueChanges.pipe(
+    this.posts$ = this.query.valueChanges.pipe(
       startWith(''), // force to emit a start value
       debounceTime(400), // prevent frequent requests
       distinctUntilChanged(), // prevent duplicated values
-    ).subscribe((v) => {
-      if(v.length > 0) {
-        this.posts$ = this.repository.search({
-          title: v,
-        });
-      } else {
-        this.posts$ = this.repository.index();
-      }
-    })
+      switchMap((value) => {
+        if(value.length > 0) {
+          return this.repository.search({
+            title: value,
+          })
+        } else {
+          return this.repository.index();
+        }
+      }),
+    );
   }
 }
