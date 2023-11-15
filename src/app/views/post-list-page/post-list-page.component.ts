@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { Observable, debounceTime, distinctUntilChanged, startWith, switchMap } from "rxjs";
+import {Observable, debounceTime, distinctUntilChanged, startWith, switchMap, catchError, of } from "rxjs";
 
 import { PostService, IPost } from "../../services/post.service";
 
@@ -32,6 +32,7 @@ export class PostListPageComponent implements OnInit {
           return this.repository.index();
         }
       }),
+      catchError(() => of([])), // fallback an empty data on error
     );
   }
 }
