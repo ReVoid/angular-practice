@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 export interface IPost {
@@ -25,14 +25,10 @@ export class PostService {
   }
 
   public search(query: Partial<Pick<IPost, 'userId' | 'title'>>): Observable<IPost[]> {
-    type Params = Partial<Record<keyof typeof query, string | number>>;
-
-    const params: Params = {
-      title: query.title,
-    };
-
     return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/posts`, {
-      params,
+      params: new HttpParams().appendAll({
+        title: query.title!, // TODO: fix the unsafe reading
+      })
     })
   }
 }
