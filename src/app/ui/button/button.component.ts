@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'button[app-button], a[app-button]',
+  selector: 'button[app-button], [app-button]',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss']
 })
