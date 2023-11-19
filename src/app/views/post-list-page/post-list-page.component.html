@@ -4,6 +4,9 @@
   type="text"
 />
 <ol>
+  <p *ngIf="loading">
+    Loading...
+  </p>
   <li *ngFor="let post of (posts$ | async)">
     <a routerLink="/posts/{{post.id}}">
       <h2>
