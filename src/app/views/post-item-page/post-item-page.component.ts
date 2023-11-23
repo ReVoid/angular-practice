@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Observable, switchMap } from "rxjs";
+import { Observable, of, switchMap } from "rxjs";
 import { IPost, PostService } from "../../services/post.service";
+import { IComment, CommentService } from "../../services/comment.service";
 
 @Component({
   selector: 'app-post-item-page',
@@ -11,13 +12,25 @@ import { IPost, PostService } from "../../services/post.service";
 export class PostItemPageComponent implements OnInit {
 
   post$: Observable<IPost> = new Observable<IPost>();
+  comments$: Observable<IComment[]> = new Observable<IComment[]>();
 
-  constructor(private repository: PostService, private route: ActivatedRoute ) {}
+  constructor(
+    private route: ActivatedRoute,
+    private repository: PostService,
+    private comment: CommentService,
+  ) {}
 
   ngOnInit() {
     this.post$ = this.route.params
     .pipe(
       switchMap((params) => this.repository.item(params['id'])),
     );
+
+    this.comments$ = this.route.params
+      .pipe(
+        switchMap((params) => this.comment.search({
+          postId: params['id'],
+        }) )
+      );
   }
 }
