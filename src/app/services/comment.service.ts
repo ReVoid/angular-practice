@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 export interface IComment {
@@ -16,7 +16,13 @@ export interface IComment {
 export class CommentService {
   constructor(private http: HttpClient) { }
 
-  public index(): Observable<IComment> {
-    return this.http.get<IComment>('https://jsonplaceholder.typicode.com/comments');
+  public index(): Observable<IComment[]> {
+    return this.http.get<IComment[]>('https://jsonplaceholder.typicode.com/comments');
+  }
+
+  public search(query: Partial<Pick<IComment, 'postId'>>): Observable<IComment[]> {
+    return this.http.get<IComment[]>('https://jsonplaceholder.typicode.com/comments', {
+      params: new HttpParams({ fromObject: query })
+    });
   }
 }
