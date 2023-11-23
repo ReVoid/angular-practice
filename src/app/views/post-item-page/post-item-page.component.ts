@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Observable, map } from "rxjs";
+import { Observable, switchMap } from "rxjs";
 import { IPost, PostService } from "../../services/post.service";
 
 @Component({
@@ -15,10 +15,9 @@ export class PostItemPageComponent implements OnInit {
   constructor(private repository: PostService, private route: ActivatedRoute ) {}
 
   ngOnInit() {
-    this.route.params
-    .pipe<number>(map((i)=> i['id']))
-    .subscribe((id) => {
-      this.post$ = this.repository.item(id);
-    });
+    this.post$ = this.route.params
+    .pipe(
+      switchMap((params) => this.repository.item(params['id'])),
+    );
   }
 }
