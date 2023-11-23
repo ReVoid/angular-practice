@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Observable, map } from "rxjs";
 
 export interface IPost {
   id: number,
@@ -24,11 +24,10 @@ export class PostService {
     return this.http.get<IPost>(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }
 
-  public search(query: Partial<Pick<IPost, 'userId' | 'title'>>): Observable<IPost[]> {
-    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/posts`, {
-      params: new HttpParams().appendAll({
-        title: query.title!, // TODO: fix the unsafe reading
-      })
-    })
+  public search(query: Partial<Pick<IPost, 'title'>>): Observable<IPost[]> {
+    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/posts`)
+    .pipe(
+      map(response => response.filter(i => i.title.toLowerCase().includes(query.title || '')))
+    );
   }
 }
