@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Observable, shareReplay, switchMap, map } from "rxjs";
 import { IPost, PostService } from "../../services/post.service";
 import { IComment, CommentService } from "../../services/comment.service";
@@ -18,7 +18,6 @@ export class PostItemPageComponent implements OnInit {
     private route: ActivatedRoute,
     private repository: PostService,
     private comment: CommentService,
-    public router: Router,
   ) {}
   ngOnInit() {
     // Get post
