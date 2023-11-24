@@ -23,7 +23,10 @@ export class PostItemPageComponent implements OnInit {
   ngOnInit() {
     this.post$ = this.route.params
     .pipe(
-      switchMap((params) => this.repository.item(params['id'])),
+      switchMap((params) => {
+        const postId: number = parseInt(params['id']);
+        return this.repository.item(postId)
+      }),
     );
 
     this.comments$ = this.route.params
