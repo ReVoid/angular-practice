@@ -20,9 +20,13 @@ export class PostItemPageComponent implements OnInit {
     private comment: CommentService,
   ) {}
   ngOnInit() {
+    // Get the strongly typed post.id
+    const postId$ = this.route.paramMap.pipe(
+      map(params => Number(params.get('id') || '-1')),
+    );
+
     // Get post
-    this.post$ = this.route.paramMap.pipe(
-      map(params => Number(params.get('id'))),
+    this.post$ = postId$.pipe(
       switchMap((postId) => this.repository.item(postId)),
       shareReplay(1), // prevent request duplication
     );
@@ -31,7 +35,7 @@ export class PostItemPageComponent implements OnInit {
     this.comments$ = this.post$.pipe(
       switchMap((post) => this.comment.search({
         postId: post.id,
-      })),
+      }))
     );
   }
 }
