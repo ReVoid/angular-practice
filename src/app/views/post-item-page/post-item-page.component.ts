@@ -16,8 +16,8 @@ export class PostItemPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private repository: PostService,
-    private comment: CommentService,
+    private posts: PostService,
+    private comments: CommentService,
   ) {}
   ngOnInit() {
     // Get the strongly typed post.id
@@ -27,13 +27,13 @@ export class PostItemPageComponent implements OnInit {
 
     // Get post
     this.post$ = postId$.pipe(
-      switchMap((postId) => this.repository.item(postId)),
+      switchMap((postId) => this.posts.item(postId)),
       shareReplay(1), // prevent request duplication
     );
 
     // Then sequentially get post's comments
     this.comments$ = this.post$.pipe(
-      switchMap((post) => this.comment.search({
+      switchMap((post) => this.comments.search({
         postId: post.id,
       }))
     );
