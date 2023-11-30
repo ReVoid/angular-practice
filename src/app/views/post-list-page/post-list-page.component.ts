@@ -1,8 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { Observable, debounceTime, distinctUntilChanged, startWith, switchMap, catchError, of, tap } from "rxjs";
+import {
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  startWith,
+  switchMap,
+  catchError,
+  of,
+  tap,
+  finalize
+} from "rxjs";
 
 import { PostService, IPost } from "../../services/post.service";
+import { LoadingIndicationService } from "../../services/loading-indication.service";
 
 
 @Component({
@@ -16,16 +27,17 @@ export class PostListPageComponent implements OnInit {
 
   public posts$: Observable<IPost[]> = new Observable<IPost[]>();
 
-  public loading: boolean = false;
-
-  constructor(private repository: PostService) {}
+  constructor(
+    private repository: PostService,
+    public loading: LoadingIndicationService
+  ) {}
 
   ngOnInit(): void {
     this.posts$ = this.query.valueChanges.pipe(
       startWith(''), // force to emit a start value
       debounceTime(400), // prevent frequent requests
       distinctUntilChanged(), // prevent duplicated values
-      tap(() => this.loading = true),
+      tap(() => this.loading.start()),
       switchMap((value) => {
         if(value.length > 0) {
           return this.repository.search({
@@ -36,7 +48,7 @@ export class PostListPageComponent implements OnInit {
         }
       }),
       catchError(() => of([])), // fallback an empty data on error
-      tap(() => this.loading = false),
+      tap(() => this.loading.stop()),
     );
   }
 }

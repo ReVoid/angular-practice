@@ -1,5 +1,6 @@
 
 <header>
+  <app-loading-indicator *ngIf="loading.loading$ | async"></app-loading-indicator>
   <h2>Header</h2>
   <nav class="flex gap-x-2">
     <a *ngFor="let page of routes"

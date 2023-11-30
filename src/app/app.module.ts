@@ -14,6 +14,7 @@ import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component
 import { HttpErrorPageComponent } from './views/http-error-page/http-error-page.component';
 
 import { routes } from "./app-routing.module";
+import { LoadingIndicationService } from "./services/loading-indication.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { routes } from "./app-routing.module";
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [LoadingIndicationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
