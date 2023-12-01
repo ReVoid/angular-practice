@@ -9,7 +9,6 @@ import {
   catchError,
   of,
   tap,
-  finalize
 } from "rxjs";
 
 import { PostService, IPost } from "../../services/post.service";
@@ -37,7 +36,6 @@ export class PostListPageComponent implements OnInit {
       startWith(''), // force to emit a start value
       debounceTime(400), // prevent frequent requests
       distinctUntilChanged(), // prevent duplicated values
-      tap(() => this.loading.start()),
       switchMap((value) => {
         if(value.length > 0) {
           return this.repository.search({
@@ -48,7 +46,6 @@ export class PostListPageComponent implements OnInit {
         }
       }),
       catchError(() => of([])), // fallback an empty data on error
-      tap(() => this.loading.stop()),
     );
   }
 }
