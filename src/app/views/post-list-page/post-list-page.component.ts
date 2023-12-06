@@ -32,10 +32,13 @@ export class PostListPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.posts$ = this.query.valueChanges.pipe(
+    const query$ = this.query.valueChanges.pipe(
       startWith(''), // force to emit a start value
       debounceTime(400), // prevent frequent requests
       distinctUntilChanged(), // prevent duplicated values
+    );
+
+    this.posts$ = this.loading.show(query$.pipe(
       switchMap((value) => {
         if(value.length > 0) {
           return this.repository.search({
@@ -46,6 +49,6 @@ export class PostListPageComponent implements OnInit {
         }
       }),
       catchError(() => of([])), // fallback an empty data on error
-    );
+    ));
   }
 }
