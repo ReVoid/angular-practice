@@ -30,4 +30,11 @@ export class PostService {
       map(response => response.filter(i => i.title.toLowerCase().includes(query.title || '')))
     );
   }
+
+  public create(post: Omit<IPost, 'id'>): Observable<IPost> {
+    return this.http.post<IPost>(
+      'https://jsonplaceholder.typicode.com/posts',
+      post,
+    );
+  }
 }
