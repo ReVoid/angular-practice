@@ -15,6 +15,7 @@ import { HttpErrorPageComponent } from './views/http-error-page/http-error-page.
 
 import { routes } from "./app-routing.module";
 import { LoadingIndicationService } from "./services/loading-indication.service";
+import { PostCreatePageComponent } from './views/post-create-page/post-create-page.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { LoadingIndicationService } from "./services/loading-indication.service"
     PostItemPageComponent,
     UiListPageComponent,
     HttpErrorPageComponent,
+    PostCreatePageComponent,
   ],
   imports: [
     BrowserModule,
