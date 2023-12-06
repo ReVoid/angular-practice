@@ -37,4 +37,11 @@ export class PostService {
       post,
     );
   }
+
+  public update(post: IPost): Observable<IPost> {
+    return this.http.put<IPost>(
+      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      post,
+    )
+  }
 }

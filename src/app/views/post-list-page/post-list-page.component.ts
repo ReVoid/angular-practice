@@ -8,7 +8,6 @@ import {
   switchMap,
   catchError,
   of,
-  tap,
 } from "rxjs";
 
 import { PostService, IPost } from "../../services/post.service";
