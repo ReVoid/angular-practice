@@ -34,9 +34,13 @@ export class PostCreatePageComponent {
   }
 
   onSubmit() {
-    this.repository.create({
+    const response$ = this.repository.create({
         userId: 1, // TODO: remove static value
         ...this.form.getRawValue(),
-      }).subscribe();
+      });
+
+    response$
+    .subscribe(() => this.form.reset())
+    .unsubscribe();
   }
 }
