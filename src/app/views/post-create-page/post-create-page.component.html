@@ -1,3 +1,13 @@
-<form>
-  <h1>Post create page</h1>
-</form>>
+<form
+  [formGroup]="form"
+  (submit)="onSubmit()"
+>
+  <input [formControl]="form.controls.title" />
+  <textarea [formControl]="form.controls.body"></textarea>
+
+  <button
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
