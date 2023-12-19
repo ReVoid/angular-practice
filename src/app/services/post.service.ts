@@ -14,18 +14,20 @@ export interface IPost {
 })
 export class PostService {
 
+  private readonly BASE_URL: string = 'https://jsonplaceholder.typicode.com';
+
   constructor(private http: HttpClient) {}
 
   public index(): Observable<IPost[]> {
-    return this.http.get<IPost[]>('https://jsonplaceholder.typicode.com/posts')
+    return this.http.get<IPost[]>(`${this.BASE_URL}/posts`)
   }
 
   public item(id: number): Observable<IPost> {
-    return this.http.get<IPost>(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    return this.http.get<IPost>(`${this.BASE_URL}/posts/${id}`);
   }
 
   public search(query: Partial<Pick<IPost, 'title'>>): Observable<IPost[]> {
-    return this.http.get<IPost[]>(`https://jsonplaceholder.typicode.com/posts`)
+    return this.http.get<IPost[]>(`${this.BASE_URL}/posts`)
     .pipe(
       map(response => response.filter(i => i.title.toLowerCase().includes(query.title || '')))
     );
@@ -33,14 +35,14 @@ export class PostService {
 
   public create(post: Omit<IPost, 'id'>): Observable<IPost> {
     return this.http.post<IPost>(
-      'https://jsonplaceholder.typicode.com/posts',
+      `${this.BASE_URL}/posts`,
       post,
     );
   }
 
   public update(post: IPost): Observable<IPost> {
     return this.http.put<IPost>(
-      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      `${this.BASE_URL}/posts/${post.id}`,
       post,
     )
   }
