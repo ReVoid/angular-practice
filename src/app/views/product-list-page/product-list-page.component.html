@@ -3,14 +3,17 @@
     <li *ngFor="let item of products">
       <article>
         <h1>
-          {{ item.title}}
+          {{ item.title }}
         </h1>
         <img [src]="item.thumbnail"  alt="Product image" />
         <p>
           {{ item.description }}
         </p>
         <p>
-          {{ item.price | currency }}
+          Price {{ item.price | currency }}
+        </p>
+        <p *ngIf="item.discountPercentage > 0">
+          Discount: {{ (item.discountPercentage / 100) | percent: '1.0-2' }}
         </p>
       </article>
     </li>
