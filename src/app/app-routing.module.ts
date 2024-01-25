@@ -5,6 +5,7 @@ import { PostCreatePageComponent } from "./views/post-create-page/post-create-pa
 import { PostListPageComponent } from "./views/post-list-page/post-list-page.component";
 import { UiListPageComponent } from "./views/ui-list-page/ui-list-page.component";
 import { HttpErrorPageComponent } from "./views/http-error-page/http-error-page.component";
+import {ProductListPageComponent} from "./views/product-list-page/product-list-page.component";
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
     title: 'Post | Create',
     path: 'posts/create',
     component: PostCreatePageComponent,
+  },
+  {
+    title: 'Products',
+    path: 'products',
+    component: ProductListPageComponent,
   },
   {
     title: 'UI',
