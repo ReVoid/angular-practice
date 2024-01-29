@@ -1,3 +1,9 @@
+<input
+  [formControl]="query"
+  placeholder="Search query"
+  type="text"
+/>
+
 <ng-container *ngIf="(products$ | async) as products">
   <ul>
     <li *ngFor="let item of products">

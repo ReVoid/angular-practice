@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, map } from "rxjs";
+import { FormControl } from "@angular/forms";
+import {
+  Observable,
+  switchMap,
+  catchError,
+  of,
+  map,
+  startWith,
+  debounceTime,
+  distinctUntilChanged,
+} from "rxjs";
+
 import { IProductPagedList, ProductService } from "../../services/product.service";
 
 type Products = IProductPagedList['products'];
@@ -12,13 +23,32 @@ type Products = IProductPagedList['products'];
 export class ProductListPageComponent implements OnInit {
   public products$: Observable<Products> = of([]);
 
-  constructor(private readonly repository: ProductService) {}
+  public query = new FormControl<string>('', { nonNullable: true });
+
+  constructor(
+    private readonly repository: ProductService,
+  ) {}
 
   ngOnInit() {
-    this.products$ = this.repository
-    .index()
-    .pipe(
-      map(i => i.products),
+    const query$ = this.query.valueChanges.pipe(
+      startWith(''), // force to emit a start value
+      debounceTime(400), // prevent frequent requests
+      distinctUntilChanged(), // prevent duplicated values
+    );
+
+    this.products$ = query$.pipe(
+      switchMap((value) => {
+        if (value.length > 0) {
+          return this.repository.search(value).pipe(
+            map(v => v.products),
+          );
+        } else {
+          return this.repository.index().pipe(
+            map(v => v.products),
+          );
+        }
+      }),
+      catchError(() => of([])), // fallback an empty data on error
     );
   }
 }

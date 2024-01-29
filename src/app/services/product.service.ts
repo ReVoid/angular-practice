@@ -27,7 +27,7 @@ export interface IProductPagedList {
   providedIn: 'root'
 })
 export class ProductService {
-  private BASE_URL: string = 'https://dummyjson.com';
+  private readonly BASE_URL: string = 'https://dummyjson.com';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -35,5 +35,15 @@ export class ProductService {
     return this.http.get<IProductPagedList>(
       `${this.BASE_URL}/products`,
       );
+  }
+
+  search(query: string): Observable<IProductPagedList> {
+    return this.http.get<IProductPagedList>(
+      `${this.BASE_URL}/products/search`, {
+        params: {
+          q: query,
+        }
+      }
+    );
   }
 }
