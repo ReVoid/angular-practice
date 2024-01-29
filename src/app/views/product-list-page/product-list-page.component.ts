@@ -32,13 +32,14 @@ export class ProductListPageComponent implements OnInit {
   ngOnInit() {
     const query$ = this.query.valueChanges.pipe(
       startWith(''), // force to emit a start value
+      map(v => v && v.trim() ? v : ''), // prevent empty strings
       debounceTime(400), // prevent frequent requests
       distinctUntilChanged(), // prevent duplicated values
     );
 
     this.products$ = query$.pipe(
       switchMap((value) => {
-        if (value.length > 0) {
+        if (value) {
           return this.repository.search(value).pipe(
             map(v => v.products),
           );
