@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
 
 export interface IProduct {
-  id: number,
+  id: string,
   title: string,
   description: string,
   price: number,
@@ -35,6 +35,12 @@ export class ProductService {
     return this.http.get<IProductPagedList>(
       `${this.BASE_URL}/products`,
       );
+  }
+
+  item(id: string): Observable<IProduct> {
+    return this.http.get<IProduct>(
+      `${this.BASE_URL}/products/${id}`,
+    );
   }
 
   search(query: string): Observable<IProductPagedList> {

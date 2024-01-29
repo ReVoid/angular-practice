@@ -7,7 +7,7 @@
 <ng-container *ngIf="(products$ | async) as products">
   <ul>
     <li *ngFor="let item of products">
-      <article>
+      <article routerLink="/products/{{item.id}}">
         <h1>
           {{ item.title }}
         </h1>

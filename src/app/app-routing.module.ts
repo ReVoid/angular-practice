@@ -6,6 +6,7 @@ import { PostListPageComponent } from "./views/post-list-page/post-list-page.com
 import { UiListPageComponent } from "./views/ui-list-page/ui-list-page.component";
 import { HttpErrorPageComponent } from "./views/http-error-page/http-error-page.component";
 import { ProductListPageComponent } from "./views/product-list-page/product-list-page.component";
+import { ProductItemPageComponent } from "./views/product-item-page/product-item-page.component";
 
 export const routes: Routes = [
   {
@@ -33,6 +34,11 @@ export const routes: Routes = [
     title: 'Products',
     path: 'products',
     component: ProductListPageComponent,
+  },
+  {
+    title: 'Product',
+    path: 'products/:id',
+    component: ProductItemPageComponent,
   },
   {
     title: 'UI',

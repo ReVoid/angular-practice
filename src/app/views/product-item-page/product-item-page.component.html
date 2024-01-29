@@ -1,0 +1,16 @@
+<ng-container *ngIf="product$ | async as product">
+  <h1>
+    {{ product.title}}
+  </h1>
+  <ul *ngIf="product.images.length">
+    <li *ngFor="let src of product.images">
+      <img [src]="src" alt="">
+    </li>
+  </ul>
+  <p>
+    {{ product.description }}
+  </p>
+  <p>
+    Price: {{ product.price | currency: '1.0-2' }}
+  </p>
+</ng-container>

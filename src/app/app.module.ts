@@ -10,13 +10,14 @@ import { UiModule } from "./ui/ui.module";
 // Pages
 import { PostListPageComponent } from './views/post-list-page/post-list-page.component';
 import { PostItemPageComponent } from './views/post-item-page/post-item-page.component';
+import { ProductListPageComponent } from './views/product-list-page/product-list-page.component';
+import { ProductItemPageComponent } from './views/product-item-page/product-item-page.component';
 import { UiListPageComponent } from './views/ui-list-page/ui-list-page.component';
-import { HttpErrorPageComponent } from './views/http-error-page/http-error-page.component';
 
+import { HttpErrorPageComponent } from './views/http-error-page/http-error-page.component';
 import { routes } from "./app-routing.module";
 import { LoadingIndicationService } from "./services/loading-indication.service";
 import { PostCreatePageComponent } from './views/post-create-page/post-create-page.component';
-import { ProductListPageComponent } from './views/product-list-page/product-list-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ProductListPageComponent } from './views/product-list-page/product-list
     HttpErrorPageComponent,
     PostCreatePageComponent,
     ProductListPageComponent,
+    ProductItemPageComponent,
   ],
   imports: [
     BrowserModule,
