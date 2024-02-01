@@ -23,6 +23,11 @@ export interface IProductPagedList {
   limit: number,
 }
 
+type PaginationRequest = {
+  page: number,
+  size: number,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,10 +36,18 @@ export class ProductService {
 
   constructor(private readonly http: HttpClient) {}
 
-  index(): Observable<IProductPagedList> {
+  index(pagination: PaginationRequest = { page: 0, size: 10 }): Observable<IProductPagedList> {
     return this.http.get<IProductPagedList>(
       `${this.BASE_URL}/products`,
-      );
+      {
+        params: {
+          limit: pagination.size,
+          skip: pagination.page > 1
+            ? pagination.page * pagination.size
+            : 0,
+        }
+      }
+    );
   }
 
   item(id: string): Observable<IProduct> {
@@ -43,11 +56,15 @@ export class ProductService {
     );
   }
 
-  search(query: string): Observable<IProductPagedList> {
+  search(query: string, pagination: PaginationRequest = { page: 0, size: 10 }): Observable<IProductPagedList> {
     return this.http.get<IProductPagedList>(
       `${this.BASE_URL}/products/search`, {
         params: {
           q: query,
+          limit: pagination.size,
+          skip: pagination.page > 1
+            ? pagination.page * pagination.size
+            : 0,
         }
       }
     );

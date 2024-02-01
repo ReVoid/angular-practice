@@ -4,6 +4,16 @@
   type="text"
 />
 
+<ng-container *ngIf="(pages$ | async) as pages">
+  <ul>
+    <li *ngFor="let page of pages">
+      <button (click)="currentPage$.next(page)">
+        {{ page }}
+      </button>
+    </li>
+  </ul>
+</ng-container>
+
 <ng-container *ngIf="(products$ | async) as products">
   <ul>
     <li *ngFor="let item of products">
