@@ -14,6 +14,8 @@ import {
   shareReplay,
 } from "rxjs";
 
+import { LoadingIndicationService } from "../../services/loading-indication.service";
+
 import { IProductPagedList, ProductService } from "../../services/product.service";
 
 type Products = IProductPagedList['products'];
@@ -41,16 +43,16 @@ export class ProductListPageComponent implements OnInit {
 
   constructor(
     private readonly repository: ProductService,
+    private readonly loading: LoadingIndicationService,
   ) {}
 
   private fetchData(query: string, page: number = 1, size: number = 10): Observable<IProductPagedList> {
-    const result = query
+    const result$ = query
       ? this.repository.search(query, { page, size })
       : this.repository.index({ page, size });
 
-    return result.pipe(
-      shareReplay(1), // Prevents request duplicate
-    )
+    // Show loading indicator until request done
+    return this.loading.show(result$);
   }
 
   ngOnInit() {
