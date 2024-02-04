@@ -43,6 +43,24 @@ export class ProductListPageComponent implements OnInit {
     private readonly repository: ProductService,
   ) {}
 
+  private fetchData(query: string, page: number = 1, size: number = 10): Observable<IProductPagedList> {
+    if (query) {
+      return this.repository.search(query, {
+        page,
+        size,
+      }).pipe(
+        shareReplay(1), // Prevents request duplicate
+      );
+    } else {
+      return this.repository.index({
+        page,
+        size,
+      }).pipe(
+        shareReplay(1), // Prevents request duplicate
+      );
+    }
+  }
+
   ngOnInit() {
     const query$ = this.query.valueChanges.pipe(
       map(v => v && v.trim() ? v : ''), // prevent empty strings
@@ -54,23 +72,11 @@ export class ProductListPageComponent implements OnInit {
       query$,
       this.currentPage$,
     ]).pipe(
-      startWith<[string, number]>([this.query.value, 1]), // Triggers initial request
+      startWith<[string, number]>([this.query.value, 1]), // Triggers request with an initial payload
     );
 
     this.data$ = payload$.pipe(
-      switchMap(([query, page]) => {
-        if (query) {
-          return this.repository.search(query, {
-            page,
-            size: 10,
-          });
-        } else {
-          return this.repository.index({
-            page,
-            size: 10,
-          });
-        }
-      }),
+      switchMap(([query, page]) => this.fetchData(query, page)),
       shareReplay(1), // prevent duplicated requests
       catchError(() => of({
         products: [],
