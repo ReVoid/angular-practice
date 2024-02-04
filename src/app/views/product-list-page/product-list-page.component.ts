@@ -44,21 +44,13 @@ export class ProductListPageComponent implements OnInit {
   ) {}
 
   private fetchData(query: string, page: number = 1, size: number = 10): Observable<IProductPagedList> {
-    if (query) {
-      return this.repository.search(query, {
-        page,
-        size,
-      }).pipe(
-        shareReplay(1), // Prevents request duplicate
-      );
-    } else {
-      return this.repository.index({
-        page,
-        size,
-      }).pipe(
-        shareReplay(1), // Prevents request duplicate
-      );
-    }
+    const result = query
+      ? this.repository.search(query, { page, size })
+      : this.repository.index({ page, size });
+
+    return result.pipe(
+      shareReplay(1), // Prevents request duplicate
+    )
   }
 
   ngOnInit() {
