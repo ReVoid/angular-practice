@@ -57,7 +57,7 @@ export class ProductListPageComponent implements OnInit {
 
   ngOnInit() {
     const query$ = this.query.valueChanges.pipe(
-      map(v => v && v.trim() ? v : ''), // prevent empty strings
+      map(v => v.trim().toLowerCase()), // prevent empty strings
       debounceTime(400), // prevent frequent requests
       distinctUntilChanged(), // prevent duplicated values
     );
