@@ -18,6 +18,7 @@ import { HttpErrorPageComponent } from './views/http-error-page/http-error-page.
 import { routes } from "./app-routing.module";
 import { LoadingIndicationService } from "./services/loading-indication.service";
 import { PostCreatePageComponent } from './views/post-create-page/post-create-page.component';
+import {PaginationModule} from "./ui/pagination/pagination.module";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PostCreatePageComponent } from './views/post-create-page/post-create-pa
     UiModule,
     FormsModule,
     ReactiveFormsModule,
+    PaginationModule,
   ],
   providers: [LoadingIndicationService],
   bootstrap: [AppComponent]

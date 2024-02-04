@@ -1,0 +1,21 @@
+<button
+  [disabled]="!hasPrevPage"
+  (click)="prevPage()"
+>
+  Prev
+</button>
+
+<button
+  *ngFor="let i of pages"
+  [ngClass]="{ 'font-bold': i === pageNumber }"
+  (click)="onPageNumberChange(i)"
+>
+  {{ i | number }}
+</button>
+
+<button
+  [disabled]="!hasNextPage"
+  (click)="nextPage()"
+>
+  Next
+</button>

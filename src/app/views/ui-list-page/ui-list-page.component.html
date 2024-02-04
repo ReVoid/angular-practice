@@ -3,3 +3,15 @@
   <label app-label>Hello world</label>
   <input app-input>
 </app-form-field>
+
+<app-pagination
+  [(pageNumber)]="pagination.pageNumber"
+  [pageSize]="pageSize.pageSize"
+  [itemsTotal]="pagination.itemsTotal"
+></app-pagination>
+
+
+<app-page-size-picker
+  [(pageSize)]="pageSize.pageSize"
+  [pageSizeOptions]="pageSize.pageSizes"
+></app-page-size-picker>

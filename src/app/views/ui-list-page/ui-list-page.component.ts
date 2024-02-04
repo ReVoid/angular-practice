@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class UiListPageComponent {
   title: string = 'UI';
+
+  pagination = {
+    pageNumber: 3,
+    pageSize: 10,
+    itemsTotal: 100,
+  }
+
+  pageSize = {
+    pageSize: 10,
+    pageSizes: [5, 10, 15],
+  }
 }
