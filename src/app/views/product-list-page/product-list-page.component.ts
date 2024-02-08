@@ -37,6 +37,8 @@ export class ProductListPageComponent implements OnInit {
     total: 0,
   });
 
+  public page = new FormControl<number>(1, { nonNullable: true });
+
   public products$: Observable<Products> = of([]);
 
   public query = new FormControl<string>('', { nonNullable: true });
