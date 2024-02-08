@@ -4,16 +4,16 @@
   type="text"
 />
 
+{{ payload$ | async }}
 <ng-container *ngIf="(data$ | async) as pages">
   <app-pagination
-    [pageNumber]="currentPage$.value"
+    [formControl]="page"
     [pageSize]="10"
     [itemsTotal]="pages.total"
-    (pageNumberChange)="currentPage$.next($event)"
   ></app-pagination>
 </ng-container>
 
-<ng-container *ngIf="(products$ | async) as products">
+<ng-container *ngIf="(data$ | async)?.products as products">
   <ul>
     <li *ngFor="let item of products">
       <article routerLink="/products/{{item.id}}">
