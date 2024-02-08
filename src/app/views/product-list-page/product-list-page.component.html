@@ -4,14 +4,13 @@
   type="text"
 />
 
-<ng-container *ngIf="(pages$ | async) as pages">
-  <ul>
-    <li *ngFor="let page of pages">
-      <button (click)="currentPage$.next(page)">
-        {{ page }}
-      </button>
-    </li>
-  </ul>
+<ng-container *ngIf="(data$ | async) as pages">
+  <app-pagination
+    [pageNumber]="currentPage$.value"
+    [pageSize]="10"
+    [itemsTotal]="pages.total"
+    (pageNumberChange)="currentPage$.next($event)"
+  ></app-pagination>
 </ng-container>
 
 <ng-container *ngIf="(products$ | async) as products">
