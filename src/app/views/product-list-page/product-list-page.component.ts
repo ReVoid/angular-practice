@@ -39,8 +39,6 @@ export class ProductListPageComponent implements OnInit {
     total: 0,
   });
 
-  public payload$!: Observable<[string, number]>;
-
   private fetchData(query: string, page: number = 1, size: number = 10): Observable<IProductPagedList> {
     const result$ = query
       ? this.repository.search(query, { page, size })
@@ -61,7 +59,7 @@ export class ProductListPageComponent implements OnInit {
       debounceTime(400), // prevent frequent requests
     );
 
-    this.payload$ = combineLatest([
+    const payload$ = combineLatest([
       query$.pipe(
         startWith(this.query.value), // triggers first request
       ),
@@ -70,7 +68,7 @@ export class ProductListPageComponent implements OnInit {
       ),
     ]);
 
-    this.data$ = this.payload$.pipe(
+    this.data$ = payload$.pipe(
       switchMap(([query, page]) => this.fetchData(query, page)),
       shareReplay(), // prevent duplicated requests
       catchError(() => of({

@@ -4,7 +4,6 @@
   type="text"
 />
 
-{{ payload$ | async }}
 <ng-container *ngIf="(data$ | async) as pages">
   <app-pagination
     [formControl]="page"
