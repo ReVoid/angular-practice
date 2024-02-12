@@ -16,6 +16,7 @@ import { PaginationModule } from "./pagination/pagination.module";
     ButtonComponent,
     FormFieldModule,
     LoadingIndicatorComponent,
+    CardModule,
   ],
   imports: [
     CommonModule,

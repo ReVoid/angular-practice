@@ -1,6 +1,2 @@
-<app-card-title
-  *ngIf="title"
->
-  {{ title }}
-</app-card-title>
+<ng-content select="[app-card-title]"></ng-content>
 <ng-content></ng-content>

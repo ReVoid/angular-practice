@@ -14,7 +14,7 @@ import { CardTitleComponent } from './card-title/card-title.component';
     CardTitleComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class CardModule { }
